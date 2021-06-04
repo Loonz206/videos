@@ -1,55 +1,32 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import VideoDetail from "../components/VideoDetail";
 import VideoList from "../components/VideoList";
-import youtube from "../api/youtube";
+import useVideos from "../hooks/useVideos";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = { videos: [], selectedVideo: null };
-  }
+const App = () => {
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videos, search] = useVideos("bacon cheeseburgers");
 
-  componentDidMount() {
-    this.onTermSubmit("Single origin coffee");
-  }
+  useEffect(() => {
+    setSelectedVideo(videos[0]);
+  }, [videos]);
 
-  onVideoSelect = (video) => {
-    this.setState({ selectedVideo: video });
-  };
-
-  onTermSubmit = async (term) => {
-    const response = await youtube.get("/search", {
-      params: {
-        q: term,
-      },
-    });
-    const { data } = response;
-    console.log(data);
-    this.setState({
-      videos: data.items,
-      selectedVideo: data.items[0],
-    });
-  };
-
-  render() {
-    const { videos } = this.state;
-    return (
-      <div className="ui container">
-        <SearchBar onSubmit={this.onTermSubmit} />
-        <div className="ui grid">
-          <div className="ui row">
-            <div className="eleven wide column">
-              <VideoDetail video={this.state.selectedVideo} />
-            </div>
-            <div className="five wide column">
-              <VideoList videos={videos} onVideoSelect={this.onVideoSelect} />
-            </div>
+  return (
+    <div className="ui container">
+      <SearchBar onFormSubmit={search} />
+      <div className="ui grid">
+        <div className="ui row">
+          <div className="eleven wide column">
+            <VideoDetail video={selectedVideo} />
+          </div>
+          <div className="five wide column">
+            <VideoList onVideoSelect={setSelectedVideo} videos={videos} />
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

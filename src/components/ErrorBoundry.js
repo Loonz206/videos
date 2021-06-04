@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { Component } from "react";
+import PropTypes from "prop-types";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -32,5 +32,10 @@ class ErrorBoundary extends Component {
     return children;
   }
 }
+
+ErrorBoundary.propTypes = {
+  fallback: PropTypes.string,
+  children: PropTypes.element,
+};
 
 export default ErrorBoundary;
