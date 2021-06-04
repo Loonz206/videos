@@ -1,5 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
+import ErrorBoundry from "./components/ErrorBoundry";
+const App = lazy(() => import("./components/App"));
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(
+  <ErrorBoundry fallback={"An error has occurred"}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <App />
+    </Suspense>
+  </ErrorBoundry>,
+  document.querySelector("#root")
+);
