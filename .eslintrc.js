@@ -8,6 +8,8 @@ module.exports = {
     "plugin:react/recommended",
     "standard",
     "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:sonarjs/recommended",
   ],
   parserOptions: {
     ecmaFeatures: {

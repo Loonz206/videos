@@ -4,7 +4,13 @@ import "./VideoItem.css";
 
 const VideoItem = ({ video, onVideoSelect }) => {
   return (
-    <div className="item video-item" onClick={() => onVideoSelect(video)}>
+    <div
+      className="item video-item"
+      onClick={() => onVideoSelect(video)}
+      onKeyDown={this.onKeyDown}
+      role="button"
+      tabIndex={0}
+    >
       <img
         className="ui image"
         src={video.snippet.thumbnails.medium.url}

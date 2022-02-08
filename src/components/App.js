@@ -3,13 +3,18 @@ import SearchBar from "../components/SearchBar";
 import VideoDetail from "../components/VideoDetail";
 import VideoList from "../components/VideoList";
 import useVideos from "../hooks/useVideos";
+import { setDataToCache } from "../util/sessionCache";
 
 const App = () => {
-  const [selectedVideo, setSelectedVideo] = useState(null);
+  // default search term
   const [videos, search] = useVideos("bacon cheeseburgers");
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
-    setSelectedVideo(videos[0]);
+    if (videos) {
+      setSelectedVideo(videos[0]);
+      setDataToCache(selectedVideo);
+    }
   }, [videos]);
 
   return (
