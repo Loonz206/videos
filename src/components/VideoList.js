@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import VideoItem from "../components/VideoItem";
 
 const VideoList = ({ videos, onVideoSelect }) => {
-  console.log("Videos", typeof videos, videos);
   const renderedList = videos.map((video) => {
     return (
       <VideoItem
